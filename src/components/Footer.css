@@ -1,0 +1,40 @@
+/* src/components/Footer.css */
+.footer {
+    background-color: #121212; /* Fondo oscuro */
+    color: #fff; /* Color del texto */
+    padding: 20px;
+    text-align: center; /* Centra el texto */
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column; /* Coloca logo y redes sociales en columna */
+    align-items: center; /* Centra los elementos */
+  }
+  
+  .footer-logo {
+    height: 50px; /* Ajusta el tamaño del logo */
+    margin-bottom: 10px; /* Espacio debajo del logo */
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center; /* Centra los íconos */
+    margin: 10px 0; /* Espacio arriba y abajo */
+  }
+  
+  .social-icons a {
+    color: #fff; /* Color de los íconos */
+    margin: 0 10px; /* Espacio entre íconos */
+    font-size: 24px; /* Tamaño de los íconos */
+    transition: transform 0.3s; /* Animación al pasar el ratón */
+  }
+  
+  .social-icons a:hover {
+    transform: scale(1.2); /* Aumenta el tamaño del ícono al pasar el ratón */
+  }
+  
+  .footer p {
+    margin: 10px 0 0; /* Espacio arriba del texto de derechos de autor */
+  }
+  

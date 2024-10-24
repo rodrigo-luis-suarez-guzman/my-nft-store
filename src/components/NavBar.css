@@ -1,0 +1,89 @@
+/* src/components/NavBar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #101010;
+  padding: 1rem 2rem;
+  color: #fff;
+  position: relative; /* Para que el menú se posicione correctamente */
+}
+
+.nav-buttons {
+  display: flex;
+}
+
+.nav-buttons button {
+  background: linear-gradient(135deg, #00FFFF, #007FFF);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.5rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-buttons button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+.nav-buttons button:active {
+  transform: scale(0.95);
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #00FFFF;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* Estilos para el botón de hamburguesa */
+.menu-icon {
+  display: none; /* Oculta el botón por defecto */
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  height: 3px;
+  width: 25px;
+  background-color: #00FFFF; /* Color de las barras */
+  margin: 4px 0; /* Espacio entre las barras */
+  transition: 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-buttons {
+    display: none; /* Oculta los botones en pantallas pequeñas */
+    flex-direction: column; /* Cambia a columna en el menú hamburguesa */
+    position: absolute; /* Posiciona el menú de forma absoluta */
+    top: 60px; /* Ajusta según la altura de la barra de navegación */
+    left: 0;
+    right: 0;
+    background-color: #101010; /* Fondo del menú */
+    z-index: 1; /* Asegura que esté encima de otros elementos */
+  }
+
+  .nav-buttons.active {
+    display: flex; /* Muestra el menú cuando está activo */
+    align-items: center; /* Centra los botones horizontalmente */
+    padding: 10px; /* Espacio alrededor del menú */
+  }
+
+  .nav-buttons button {
+    width: 80%; /* Ajusta el ancho de los botones en vista móvil */
+    padding: 0.5rem; /* Reduce el padding para que sean más pequeños */
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    margin: 5px 0; /* Espacio vertical entre los botones */
+  }
+
+  .menu-icon {
+    display: flex; /* Muestra el botón de hamburguesa */
+  }
+}

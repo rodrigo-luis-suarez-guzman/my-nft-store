@@ -1,0 +1,81 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: rgba(15, 15, 15, 0.95); /* Fondo oscuro translúcido */
+  border: 1px solid rgba(0, 255, 255, 0.6); /* Borde brillante */
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); /* Sombra brillante */
+  backdrop-filter: blur(10px); /* Añade desenfoque de fondo */
+  width: 90%;
+  max-width: 400px;
+  color: #fff;
+  text-align: center;
+  animation: appear 0.3s ease-out; /* Animación al aparecer */
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal h2 {
+  font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #00d4ff, #ff00cc);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 20px;
+}
+
+.modal button {
+  background: linear-gradient(135deg, #00ffcc, #0044ff);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+.modal button:hover {
+  background: linear-gradient(135deg, #0044ff, #00ffcc);
+  box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
+}
+
+.modal button.close {
+  background-color: #ff0044;
+}
+
+.modal button.close:hover {
+  background-color: #ff3366;
+}
+
+/* Estilos para las imágenes de NFT */
+.modal .nft-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}

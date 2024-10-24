@@ -1,0 +1,101 @@
+/* src/components/ProductList.css */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    background-color: #121212; /* Fondo oscuro profundo */
+}
+
+.product-card {
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde suave */
+    padding: 16px;
+    margin: 8px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    width: 220px; /* Tamaño de la tarjeta ajustado */
+    background: linear-gradient(145deg, #1c1c1c, #272727); /* Fondo gris oscuro con degradado */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6); /* Sombra más profunda */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 3s ease-in-out infinite; /* Añadido el efecto de movimiento */
+}
+
+/* Definición de la animación */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Mover hacia arriba */
+    }
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento */
+    box-shadow: 0 12px 20px rgba(255, 20, 147, 0.7); /* Sombra color rosa neón */
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borde suave */
+    transition: border-color 0.3s ease;
+}
+
+.product-image:hover {
+    border-color: #00bcd4; /* Borde celeste neón en hover */
+}
+
+.product-card button {
+    margin-top: 12px;
+    padding: 10px 15px;
+    background-color: #ff00ff; /* Rosa neón */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 5%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+    transform: translateX(-50%) scaleY(0.6);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.product-card button:hover::before {
+    opacity: 1;
+}
+
+.product-card button:hover {
+    background-color: #00bcd4; /* Celeste neón en hover */
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.5); /* Sombra celeste brillante */
+}
+
+.product-card button:focus {
+    outline: none;
+}
+
+.product-card h3 {
+    color: #ffffff; /* Color del texto */
+    font-size: 1.2rem;
+    margin: 12px 0;
+}
+
+.product-card p {
+    color: rgba(255, 255, 255, 0.7); /* Texto secundario */
+    font-size: 0.9rem;
+}
