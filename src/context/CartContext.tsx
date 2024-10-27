@@ -15,13 +15,8 @@ interface CartState {
 
 interface CartContextType {
   state: CartState;
-  dispatch: React.Dispatch<CartAction>;
+  dispatch: React.Dispatch<any>;
 }
-
-// Define los tipos de acción
-type CartAction =
-  | { type: 'ADD_TO_CART'; payload: Purchase }
-  | { type: 'REMOVE_FROM_CART'; payload: { id: number } };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -29,7 +24,7 @@ const initialState: CartState = {
   purchases: [],
 };
 
-const cartReducer = (state: CartState, action: CartAction): CartState => {
+const cartReducer = (state: CartState, action: any): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
       return { ...state, purchases: [...state.purchases, action.payload] };

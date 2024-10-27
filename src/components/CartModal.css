@@ -101,3 +101,16 @@
 .purchase-button:hover {
   background-color: #218838;
 }
+.cart-item button {
+  background-color: #f50057;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px; /* Espacio entre el nombre y el botón */
+}
+
+.cart-item button:hover {
+  background-color: #ff3368; /* Efecto hover para el botón de eliminar */
+}
