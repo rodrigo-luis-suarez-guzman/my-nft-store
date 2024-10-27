@@ -1,7 +1,6 @@
-// src/components/ProductList.tsx
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import { connectMetaMask } from '../services/walletConnections'; // Asegúrate de tener esta función
+import { connectMetaMask } from '../services/walletConnections';
 import './ProductList.css';
 import nft1 from '../assets/images/nft1.png';
 import nft2 from '../assets/images/nft2.png';
@@ -20,30 +19,22 @@ const products = [
 
 // Componente ProductList
 const ProductList: React.FC = () => {
-  const { dispatch } = useCart(); // Usa el hook useCart
-
-  // Maneja la adición de un producto al carrito
-  const handleAddToCart = (item: { id: number; name: string; price: number; image: string }) => {
-    dispatch({ type: 'ADD_TO_CART', payload: { ...item, quantity: 1 } });
-  };
+  const { dispatch } = useCart();
 
   // Maneja la compra de un NFT
   const handleBuyNFT = async (product: { id: number; name: string; price: number; image: string }) => {
     try {
-      const account = await connectMetaMask(); // Conectar MetaMask
+      const account = await connectMetaMask();
 
       if (!account) {
         alert('Por favor, conecta tu MetaMask antes de realizar la compra.');
         return;
       }
 
-      // Aquí puedes implementar la lógica para transferir el pago.
-      // En este ejemplo, solo mostramos un mensaje de éxito.
       console.log(`Compraste ${product.name} por $${product.price} ETH`);
-      // Aquí puedes llamar a tu contrato inteligente para completar la compra.
 
       // Agregar el NFT al carrito
-      handleAddToCart(product);
+      dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 } }); // Asegúrate de que la acción esté definida en el contexto
     } catch (error) {
       console.error('Error al comprar NFT:', error);
       alert('Hubo un error al intentar comprar el NFT.');
@@ -56,7 +47,7 @@ const ProductList: React.FC = () => {
         <div key={product.id} className="product-card">
           <img src={product.image} alt={product.name} className="product-image" />
           <h3>{product.name}</h3>
-          <p>Price: ${product.price} ETH</p>
+          <p>Price: {product.price} ETH</p>
           <button onClick={() => handleBuyNFT(product)}>Comprar NFT</button>
         </div>
       ))}

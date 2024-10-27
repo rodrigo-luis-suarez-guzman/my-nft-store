@@ -1,39 +1,44 @@
-import React, { createContext, useReducer, ReactNode, useContext } from 'react';
+// CartContext.tsx
+import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
-interface CartItem {
+export interface Purchase {
   id: number;
   name: string;
   price: number;
-  image: string; // Agregar imagen
+  image: string;
   quantity: number;
 }
 
 interface CartState {
-  items: CartItem[];
-  purchases: CartItem[]; // Asegúrate de tener esta propiedad
+  purchases: Purchase[];
 }
 
-type CartAction =
-  | { type: 'ADD_TO_CART'; payload: CartItem }
-  | { type: 'REMOVE_FROM_CART'; payload: { id: number } }
-  | { type: 'PURCHASE_ITEMS'; payload: CartItem }; // Agregar payload
+interface CartContextType {
+  state: CartState;
+  dispatch: React.Dispatch<CartAction>;
+}
 
-const initialState: CartState = { items: [], purchases: [] }; // Inicializa compras
+// Define los tipos de acción
+type CartAction =
+  | { type: 'ADD_TO_CART'; payload: Purchase }
+  | { type: 'REMOVE_FROM_CART'; payload: { id: number } };
+
+const CartContext = createContext<CartContextType | undefined>(undefined);
+
+const initialState: CartState = {
+  purchases: [],
+};
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
-      return { ...state, items: [...state.items, action.payload] };
+      return { ...state, purchases: [...state.purchases, action.payload] };
     case 'REMOVE_FROM_CART':
-      return { ...state, items: state.items.filter(item => item.id !== action.payload.id) };
-    case 'PURCHASE_ITEMS':
-      return { ...state, purchases: [...state.purchases, action.payload], items: [] }; // Mueve el artículo a compras
+      return { ...state, purchases: state.purchases.filter(item => item.id !== action.payload.id) };
     default:
       return state;
   }
 };
-
-const CartContext = createContext<{ state: CartState; dispatch: React.Dispatch<CartAction> } | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
@@ -45,11 +50,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// Custom hook para usar el CartContext
+// Hook para usar el contexto
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart debe ser usado dentro de un CartProvider');
+    throw new Error('useCart must be used within a CartProvider');
   }
   return context;
 };

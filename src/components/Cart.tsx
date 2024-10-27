@@ -1,6 +1,6 @@
-// src/components/Cart.tsx
 import React from 'react';
-import { useCart } from '../context/CartContext'; // Asegúrate de importar useCart
+import { useCart } from '../context/CartContext';
+
 
 const Cart: React.FC = () => {
   const { state, dispatch } = useCart();
@@ -11,16 +11,21 @@ const Cart: React.FC = () => {
 
   return (
     <div>
-      {state.items.length === 0 ? (
-        <p>No hay items en el carrito</p>
-      ) : (
-        state.items.map((item: { id: number; name: string; price: number; quantity: number }) => (
-          <div key={item.id}>
-            <p>{item.name} - ${item.price} (Cantidad: {item.quantity})</p>
-            <button onClick={() => handleRemoveFromCart(item.id)}>Eliminar</button>
-          </div>
-        ))
-      )}
+      <h2>Tu Carrito</h2>
+      <ul>
+        {state.purchases.length === 0 ? (
+          <p>No hay artículos en tu carrito.</p>
+        ) : (
+          state.purchases.map((item) => (
+            <li key={item.id}>
+              <img src={item.image} alt={item.name} />
+              <div>{item.name}</div>
+              <div>Precio: ${item.price}</div>
+              <button onClick={() => handleRemoveFromCart(item.id)}>Eliminar</button>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };
