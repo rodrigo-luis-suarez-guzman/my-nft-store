@@ -8,7 +8,7 @@ import logo from '../assets/images/Logo.svg';
 interface NavBarProps {
   onOpenPurchaseList: () => void;
   onOpenCartModal: () => void;
-  onOpenLoginModal: () => void; // Asegúrate de tener esta propiedad
+  onOpenLoginModal: () => void;
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, onOpenLoginModal }) => {
@@ -33,6 +33,10 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
     setMenuOpen(!isMenuOpen);
   };
 
+  // Cálculo del total y la cantidad en el carrito
+  const totalQuantity = state.purchases.length;
+  const totalValue = state.purchases.reduce((total, item) => total + item.price, 0).toFixed(2); // Suponiendo que 'price' está en ETH
+
   return (
     <nav className="navbar">
       <img src={logo} alt="Logo" className="navbar-logo" />
@@ -42,7 +46,9 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
         <span className="bar"></span>
       </div>
       <div className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
-        <button onClick={onOpenCartModal}>Carrito ({state.purchases.length})</button>
+        <button onClick={onOpenCartModal}>
+          Carrito ({totalQuantity} - {totalValue} ETH)
+        </button>
         <button onClick={onOpenPurchaseList}>Mis Compras</button>
         <button onClick={() => setLoginModalOpen(true)}>Iniciar Sesión</button>
       </div>
