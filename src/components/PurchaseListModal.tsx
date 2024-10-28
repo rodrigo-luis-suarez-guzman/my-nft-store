@@ -1,7 +1,7 @@
 // PurchaseListModal.tsx
 import React from 'react';
 import { Purchase } from '../context/CartContext';
-import './CartModal.css'; // Asegúrate de importar los estilos
+import './CartModal.css'; 
 
 interface PurchaseListModalProps {
   isOpen: boolean;
