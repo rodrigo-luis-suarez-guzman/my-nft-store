@@ -11,6 +11,7 @@ export interface Purchase {
 
 interface CartState {
   purchases: Purchase[];
+  completedPurchases: Purchase[]; // Para almacenar el historial de compras
 }
 
 interface CartContextType {
@@ -22,6 +23,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const initialState: CartState = {
   purchases: [],
+  completedPurchases: [],
 };
 
 const cartReducer = (state: CartState, action: any): CartState => {
@@ -30,6 +32,12 @@ const cartReducer = (state: CartState, action: any): CartState => {
       return { ...state, purchases: [...state.purchases, action.payload] };
     case 'REMOVE_FROM_CART':
       return { ...state, purchases: state.purchases.filter(item => item.id !== action.payload.id) };
+    case 'COMPLETE_PURCHASE':
+      return {
+        ...state,
+        completedPurchases: [...state.completedPurchases, ...state.purchases],
+        purchases: [], // Limpiar carrito después de completar la compra
+      };
     default:
       return state;
   }
@@ -45,7 +53,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// Hook para usar el contexto
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

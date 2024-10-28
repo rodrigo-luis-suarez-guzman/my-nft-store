@@ -1,23 +1,27 @@
 // CartModal.tsx
 import React from 'react';
-import { useCart, Purchase } from '../context/CartContext'; // Importar la interfaz Purchase
-import './CartModal.css'; // Asegúrate de importar los estilos
+import { useCart, Purchase } from '../context/CartContext';
+import './CartModal.css';
+import '../App.css';
+
 
 const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  const { state, dispatch } = useCart(); // Asegúrate de acceder al estado aquí
+  const { state, dispatch } = useCart();
 
   if (!isOpen) return null;
 
   const handlePurchase = () => {
-    state.purchases.forEach((item: Purchase) => { // Especificar el tipo aquí
-      // Lógica para manejar la compra
-      alert(`Compraste: ${item.name}`);
-      dispatch({ type: 'REMOVE_FROM_CART', payload: { id: item.id } }); // Eliminar del carrito después de la compra
-    });
+    if (state.purchases.length > 0) {
+      dispatch({ type: 'COMPLETE_PURCHASE' }); // Mueve todos los artículos a compras completadas
+      alert('Compra realizada con éxito');
+      onClose();
+    } else {
+      alert('No hay artículos en el carrito para comprar.');
+    }
   };
 
   const handleRemoveFromCart = (id: number) => {
-    dispatch({ type: 'REMOVE_FROM_CART', payload: { id } }); // Despachar acción para eliminar el ítem
+    dispatch({ type: 'REMOVE_FROM_CART', payload: { id } });
   };
 
   return (
@@ -29,7 +33,7 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
           <p>No hay items en el carrito.</p>
         ) : (
           <ul className="cart-items">
-            {state.purchases.map((item: Purchase) => ( // Especificar el tipo aquí también
+            {state.purchases.map((item: Purchase) => (
               <li key={item.id} className="cart-item">
                 <img src={item.image} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">

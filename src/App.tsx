@@ -1,22 +1,58 @@
+// src/App.tsx
+
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import CartModal from './components/CartModal';
 import LoginModal from './components/LoginModal';
 import PurchaseListModal from './components/PurchaseListModal';
-import ProductList from './components/ProductList'; 
+import ProductList from './components/ProductList';
 import Footer from './components/Footer';
 import { UserProvider } from './context/UserContext';
-import { CartProvider, useCart } from './context/CartContext'; 
-import { connectMetaMask, connectCoinbase } from './services/walletConnections'; 
+import { CartProvider, useCart } from './context/CartContext';
+import { connectMetaMask, connectCoinbase } from './services/walletConnections';
 import './App.css';
 
 const App = () => {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [purchaseListOpen, setPurchaseListOpen] = useState(false);
-  
-  const { state } = useCart(); // Obtén el estado del contexto
-  const { purchases } = state; // Ahora accede a purchases desde state
+
+  // Mueve CartProvider a un nivel superior para acceso global
+  return (
+    <UserProvider>
+      <CartProvider>
+        <AppContent
+          cartModalOpen={cartModalOpen}
+          loginModalOpen={loginModalOpen}
+          purchaseListOpen={purchaseListOpen}
+          setCartModalOpen={setCartModalOpen}
+          setLoginModalOpen={setLoginModalOpen}
+          setPurchaseListOpen={setPurchaseListOpen}
+        />
+      </CartProvider>
+    </UserProvider>
+  );
+};
+
+interface AppContentProps {
+  cartModalOpen: boolean;
+  loginModalOpen: boolean;
+  purchaseListOpen: boolean;
+  setCartModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoginModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setPurchaseListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AppContent: React.FC<AppContentProps> = ({
+  cartModalOpen,
+  loginModalOpen,
+  purchaseListOpen,
+  setCartModalOpen,
+  setLoginModalOpen,
+  setPurchaseListOpen,
+}) => {
+  const { state } = useCart(); // Obtener el estado del contexto
+  const purchases = state.completedPurchases; // Obtener las compras completadas
 
   const handleConnectMetaMask = async () => {
     try {
@@ -43,32 +79,27 @@ const App = () => {
   };
 
   return (
-    <UserProvider>
-      <CartProvider>
-        <NavBar
-          onOpenPurchaseList={() => setPurchaseListOpen(true)}
-          onOpenLoginModal={() => setLoginModalOpen(true)}
-          onOpenCartModal={() => setCartModalOpen(true)}
-        />
-        <CartModal
-          isOpen={cartModalOpen}
-          onClose={() => setCartModalOpen(false)}
-        />
-        <LoginModal
-          isOpen={loginModalOpen}
-          onClose={() => setLoginModalOpen(false)}
-          onConnectMetaMask={handleConnectMetaMask}
-          onConnectCoinbase={handleConnectCoinbase}
-        />
-        <PurchaseListModal
-          isOpen={purchaseListOpen}
-          onClose={() => setPurchaseListOpen(false)}
-          purchases={purchases} // Ahora pasa la lista de compras correctamente
-        />
-        <ProductList /> {/* Asegúrate de incluir esto para mostrar los NFTs */}
-        <Footer />
-      </CartProvider>
-    </UserProvider>
+    <>
+      <NavBar
+        onOpenPurchaseList={() => setPurchaseListOpen(true)}
+        onOpenLoginModal={() => setLoginModalOpen(true)}
+        onOpenCartModal={() => setCartModalOpen(true)}
+      />
+      <CartModal isOpen={cartModalOpen} onClose={() => setCartModalOpen(false)} />
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        onConnectMetaMask={handleConnectMetaMask}
+        onConnectCoinbase={handleConnectCoinbase}
+      />
+      <PurchaseListModal
+        isOpen={purchaseListOpen}
+        onClose={() => setPurchaseListOpen(false)}
+        purchases={purchases} // Pasa las compras completadas aquí
+      />
+      <ProductList /> {/* Asegúrate de incluir esto para mostrar los NFTs */}
+      <Footer />
+    </>
   );
 };
 
