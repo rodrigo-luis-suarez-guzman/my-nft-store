@@ -6,9 +6,16 @@ interface LoginModalProps {
   onClose: () => void;
   onConnectMetaMask: () => void;
   onConnectCoinbase: () => void;
+  onConnectPhantom: () => void; // Agregado para Phantom
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onConnectMetaMask, onConnectCoinbase }) => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  isOpen,
+  onClose,
+  onConnectMetaMask,
+  onConnectCoinbase,
+  onConnectPhantom, // Agregado para Phantom
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -17,6 +24,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onConnectMetaM
         <h2>Iniciar Sesión</h2>
         <button className="futuristic-button" onClick={onConnectMetaMask}>Conectar MetaMask</button>
         <button className="futuristic-button" onClick={onConnectCoinbase}>Conectar Coinbase</button>
+        <button className="futuristic-button" onClick={onConnectPhantom}>Conectar Phantom</button> {/* Botón para Phantom */}
         <button className="close-button" onClick={onClose}>Cerrar</button>
       </div>
     </div>

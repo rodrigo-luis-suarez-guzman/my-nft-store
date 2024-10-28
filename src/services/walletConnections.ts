@@ -49,3 +49,4 @@ export const connectPhantom = async (): Promise<string | null> => {
     return null;
   }
 };
+

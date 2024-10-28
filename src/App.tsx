@@ -9,7 +9,7 @@ import ProductList from './components/ProductList';
 import Footer from './components/Footer';
 import { UserProvider } from './context/UserContext';
 import { CartProvider, useCart } from './context/CartContext';
-import { connectMetaMask, connectCoinbase } from './services/walletConnections';
+import { connectMetaMask, connectCoinbase, connectPhantom } from './services/walletConnections';
 import { ToastContainer, toast } from 'react-toastify'; // Importar ToastContainer y toast
 import 'react-toastify/dist/ReactToastify.css'; // Importar el CSS de Toastify
 import './App.css';
@@ -84,28 +84,43 @@ const AppContent: React.FC<AppContentProps> = ({
     }
   };
 
+  const handleConnectPhantom = async () => {
+    try {
+      const account = await connectPhantom();
+      if (account) {
+        console.log('Phantom conectado:', account);
+        setLoginModalOpen(false);
+        toast.success('Conectado a Phantom'); // Mensaje de éxito al conectar
+      }
+    } catch (error) {
+      console.error('Error al conectar Phantom:', error);
+      toast.error('Error al conectar a Phantom'); // Mensaje de error al conectar
+    }
+  };
+
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       <NavBar
         onOpenPurchaseList={() => setPurchaseListOpen(true)}
-        onOpenLoginModal={() => setLoginModalOpen(true)}
         onOpenCartModal={() => setCartModalOpen(true)}
+        onOpenLoginModal={() => setLoginModalOpen(true)}
       />
+      <ProductList />
+      <Footer />
       <CartModal isOpen={cartModalOpen} onClose={() => setCartModalOpen(false)} />
       <LoginModal
         isOpen={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         onConnectMetaMask={handleConnectMetaMask}
         onConnectCoinbase={handleConnectCoinbase}
+        onConnectPhantom={handleConnectPhantom} // Pasar la función de conexión a Phantom
       />
       <PurchaseListModal
         isOpen={purchaseListOpen}
         onClose={() => setPurchaseListOpen(false)}
-        purchases={purchases} // Pasa las compras completadas aquí
+        purchases={purchases} // Pasar las compras al modal
       />
-      <ProductList /> {/* Asegúrate de incluir esto para mostrar los NFTs */}
-      <Footer />
     </>
   );
 };

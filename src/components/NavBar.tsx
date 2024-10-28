@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import LoginModal from './LoginModal';
-import { connectMetaMask, connectCoinbase } from '../services/walletConnections';
+import { connectMetaMask, connectCoinbase, connectPhantom } from '../services/walletConnections';
 import './NavBar.css';
 import logo from '../assets/images/Logo.svg';
 import { toast } from 'react-toastify'; // Importar toast
@@ -26,8 +26,20 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
     }
   };
 
-  const handleConnectCoinbase = () => {
-    connectCoinbase();
+  const handleConnectCoinbase = async () => {
+    const account = await connectCoinbase();
+    if (account) {
+      setAddress(account);
+      setLoginModalOpen(false);
+    }
+  };
+
+  const handleConnectPhantom = async () => {
+    const account = await connectPhantom(); // Llamada para Phantom
+    if (account) {
+      setAddress(account);
+      setLoginModalOpen(false);
+    }
   };
 
   const toggleMenu = () => {
@@ -56,20 +68,21 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
       </div>
       <div className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
         <button onClick={onOpenCartModal}>
-          Carrito ({totalQuantity} - {totalValue} ETH)
+        Cart ({totalQuantity} - {totalValue} ETH)
         </button>
-        <button onClick={onOpenPurchaseList}>Mis Compras</button>
-        <button onClick={handleLoginClick}>Iniciar Sesión</button>
+        <button onClick={onOpenPurchaseList}>My Purchases</button>
+        <button onClick={handleLoginClick}>Login</button>
       </div>
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         onConnectMetaMask={handleConnectMetaMask}
         onConnectCoinbase={handleConnectCoinbase}
+        onConnectPhantom={handleConnectPhantom} // Pasar la función de conexión a Phantom
       />
       {address && (
         <div className="wallet-info">
-          <p>Conectado como:</p>
+          <p>Connected As</p>
           <p className="wallet-address">{address.slice(0, 6)}...{address.slice(-4)}</p>
         </div>
       )}
