@@ -1,5 +1,4 @@
 // src/App.tsx
-
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import CartModal from './components/CartModal';
@@ -10,16 +9,20 @@ import Footer from './components/Footer';
 import { UserProvider } from './context/UserContext';
 import { CartProvider, useCart } from './context/CartContext';
 import { connectMetaMask, connectCoinbase, connectPhantom } from './services/walletConnections';
-import { ToastContainer, toast } from 'react-toastify'; // Importar ToastContainer y toast
-import 'react-toastify/dist/ReactToastify.css'; // Importar el CSS de Toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const App = () => {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [purchaseListOpen, setPurchaseListOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(''); // Añadido para manejar el estado de búsqueda
 
-  // Mueve CartProvider a un nivel superior para acceso global
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
   return (
     <UserProvider>
       <CartProvider>
@@ -30,6 +33,8 @@ const App = () => {
           setCartModalOpen={setCartModalOpen}
           setLoginModalOpen={setLoginModalOpen}
           setPurchaseListOpen={setPurchaseListOpen}
+          onSearch={handleSearch}
+          searchQuery={searchQuery} // Pasamos searchQuery a AppContent
         />
       </CartProvider>
     </UserProvider>
@@ -43,6 +48,8 @@ interface AppContentProps {
   setCartModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setLoginModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setPurchaseListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onSearch: (query: string) => void;
+  searchQuery: string; // Añadida esta prop para la búsqueda
 }
 
 const AppContent: React.FC<AppContentProps> = ({
@@ -52,49 +59,34 @@ const AppContent: React.FC<AppContentProps> = ({
   setCartModalOpen,
   setLoginModalOpen,
   setPurchaseListOpen,
+  onSearch,
+  searchQuery,
 }) => {
-  const { state } = useCart(); // Obtener el estado del contexto
-  const purchases = state.completedPurchases; // Obtener las compras completadas
+  const { state } = useCart();
+  const purchases = state.completedPurchases;
 
+  // Manejo de conexión de wallets
   const handleConnectMetaMask = async () => {
-    try {
-      const account = await connectMetaMask();
-      if (account) {
-        console.log('MetaMask conectado:', account);
-        setLoginModalOpen(false);
-        toast.success('Conectado a MetaMask'); // Mensaje de éxito al conectar
-      }
-    } catch (error) {
-      console.error('Error al conectar MetaMask:', error);
-      toast.error('Error al conectar a MetaMask'); // Mensaje de error al conectar
+    const account = await connectMetaMask();
+    if (account) {
+      toast.success('Conectado a MetaMask', { position: 'top-right', autoClose: 3000 });
+      setLoginModalOpen(false);
     }
   };
 
   const handleConnectCoinbase = async () => {
-    try {
-      const account = await connectCoinbase();
-      if (account) {
-        console.log('Coinbase conectado:', account);
-        setLoginModalOpen(false);
-        toast.success('Conectado a Coinbase'); // Mensaje de éxito al conectar
-      }
-    } catch (error) {
-      console.error('Error al conectar Coinbase:', error);
-      toast.error('Error al conectar a Coinbase'); // Mensaje de error al conectar
+    const account = await connectCoinbase();
+    if (account) {
+      toast.success('Conectado a Coinbase Wallet', { position: 'top-right', autoClose: 3000 });
+      setLoginModalOpen(false);
     }
   };
 
   const handleConnectPhantom = async () => {
-    try {
-      const account = await connectPhantom();
-      if (account) {
-        console.log('Phantom conectado:', account);
-        setLoginModalOpen(false);
-        toast.success('Conectado a Phantom'); // Mensaje de éxito al conectar
-      }
-    } catch (error) {
-      console.error('Error al conectar Phantom:', error);
-      toast.error('Error al conectar a Phantom'); // Mensaje de error al conectar
+    const account = await connectPhantom();
+    if (account) {
+      toast.success('Conectado a Phantom Wallet', { position: 'top-right', autoClose: 3000 });
+      setLoginModalOpen(false);
     }
   };
 
@@ -105,8 +97,9 @@ const AppContent: React.FC<AppContentProps> = ({
         onOpenPurchaseList={() => setPurchaseListOpen(true)}
         onOpenCartModal={() => setCartModalOpen(true)}
         onOpenLoginModal={() => setLoginModalOpen(true)}
+        onSearch={onSearch}
       />
-      <ProductList />
+      <ProductList searchQuery={searchQuery} /> {/* Pasamos searchQuery a ProductList */}
       <Footer />
       <CartModal isOpen={cartModalOpen} onClose={() => setCartModalOpen(false)} />
       <LoginModal
@@ -114,12 +107,12 @@ const AppContent: React.FC<AppContentProps> = ({
         onClose={() => setLoginModalOpen(false)}
         onConnectMetaMask={handleConnectMetaMask}
         onConnectCoinbase={handleConnectCoinbase}
-        onConnectPhantom={handleConnectPhantom} // Pasar la función de conexión a Phantom
+        onConnectPhantom={handleConnectPhantom}
       />
       <PurchaseListModal
         isOpen={purchaseListOpen}
         onClose={() => setPurchaseListOpen(false)}
-        purchases={purchases} // Pasar las compras al modal
+        purchases={purchases}
       />
     </>
   );

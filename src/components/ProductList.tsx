@@ -10,7 +10,7 @@ import nft3 from '../assets/images/nft3.png';
 import nft4 from '../assets/images/nft4.png';
 import nft5 from '../assets/images/nft5.png';
 
-// Datos de los productos (NFTs)
+// Definir los datos de los productos (NFTs)
 const products = [
   { id: 1, name: 'Ghost Rider', price: 10, image: nft1, story: 'This is the brave Crypto Ghost Rider fighting evil in the metaverse...' },
   { id: 2, name: 'The Keep Calm and Hoodl ', price: 20, image: nft2, story: 'The Keep Calm and Hoodl is a mystical keeper of ancient secrets...' },
@@ -19,12 +19,21 @@ const products = [
   { id: 5, name: 'Crypto Morpheus', price: 50, image: nft5, story: 'Crypto Morpheus glows in the dark and keeps secrets...' },
 ];
 
-const ProductList: React.FC = () => {
+// Definir las props para ProductList
+interface ProductListProps {
+  searchQuery: string; // Añadir searchQuery como prop
+}
+
+const ProductList: React.FC<ProductListProps> = ({ searchQuery }) => {
   const { dispatch } = useCart();
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedNft, setSelectedNft] = useState<{ imageUrl: string; story: string } | null>(null);
 
-  // Maneja la compra de un NFT
+  // Filtrar los productos en función del término de búsqueda recibido
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const handleBuyNFT = async (product: { id: number; name: string; price: number; image: string }) => {
     try {
       const account = await connectMetaMask();
@@ -55,7 +64,6 @@ const ProductList: React.FC = () => {
     }
   };
 
-  // Maneja la apertura del modal al hacer clic en una card
   const handleCardClick = (product: { image: string; story: string }) => {
     setSelectedNft({ imageUrl: product.image, story: product.story });
     setModalOpen(true);
@@ -63,7 +71,7 @@ const ProductList: React.FC = () => {
 
   return (
     <div className="product-list">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <div key={product.id} className="product-card" onClick={() => handleCardClick(product)}>
           <img src={product.image} alt={product.name} className="product-image" />
           <h3>{product.name}</h3>

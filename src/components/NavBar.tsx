@@ -4,19 +4,21 @@ import LoginModal from './LoginModal';
 import { connectMetaMask, connectCoinbase, connectPhantom } from '../services/walletConnections';
 import './NavBar.css';
 import logo from '../assets/images/Logo.svg';
-import { toast } from 'react-toastify'; // Importar toast
+import { toast } from 'react-toastify';
 
 interface NavBarProps {
   onOpenPurchaseList: () => void;
   onOpenCartModal: () => void;
   onOpenLoginModal: () => void;
+  onSearch: (query: string) => void; // Nueva función de búsqueda
 }
 
-const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, onOpenLoginModal }) => {
+const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, onOpenLoginModal, onSearch }) => {
   const { state } = useCart();
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(''); // Estado para el valor de búsqueda
 
   const handleConnectMetaMask = async () => {
     const account = await connectMetaMask();
@@ -35,7 +37,7 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
   };
 
   const handleConnectPhantom = async () => {
-    const account = await connectPhantom(); // Llamada para Phantom
+    const account = await connectPhantom();
     if (account) {
       setAddress(account);
       setLoginModalOpen(false);
@@ -44,6 +46,12 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
+  };
+
+  // Manejo de la búsqueda
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    onSearch(event.target.value); // Llama a la función de búsqueda con el valor actualizado
   };
 
   // Cálculo del total y la cantidad en el carrito
@@ -66,9 +74,16 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
         <span className="bar"></span>
         <span className="bar"></span>
       </div>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        placeholder="Buscar NFT..."
+        className="navbar-search-input"
+      />
       <div className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
         <button onClick={onOpenCartModal}>
-        Cart ({totalQuantity} - {totalValue} ETH)
+          Cart ({totalQuantity} - {totalValue} ETH)
         </button>
         <button onClick={onOpenPurchaseList}>My Purchases</button>
         <button onClick={handleLoginClick}>Login</button>
@@ -78,7 +93,7 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
         onClose={() => setLoginModalOpen(false)}
         onConnectMetaMask={handleConnectMetaMask}
         onConnectCoinbase={handleConnectCoinbase}
-        onConnectPhantom={handleConnectPhantom} // Pasar la función de conexión a Phantom
+        onConnectPhantom={handleConnectPhantom}
       />
       {address && (
         <div className="wallet-info">
