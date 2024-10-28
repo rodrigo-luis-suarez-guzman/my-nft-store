@@ -63,9 +63,9 @@ const ProductList: React.FC = () => {
         <div key={product.id} className="product-card">
           <img src={product.image} alt={product.name} className="product-image" />
           <h3>{product.name}</h3>
-          <p>Precio: {product.price} ETH</p>
+          <p>Price: {product.price} ETH</p>
           <button onClick={() => handleBuyNFT(product)} className="buy-button">
-            Comprar NFT
+            Buy NFT
           </button>
         </div>
       ))}

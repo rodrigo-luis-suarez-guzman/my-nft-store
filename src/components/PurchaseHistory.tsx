@@ -7,7 +7,7 @@ const PurchaseHistory: React.FC = () => {
 
   return (
     <div>
-      <h2>Mis Compras</h2>
+      <h2>My Purchases</h2>
       {state.completedPurchases.length > 0 ? (
         <ul>
           {state.completedPurchases.map((purchase, index) => (
@@ -18,7 +18,7 @@ const PurchaseHistory: React.FC = () => {
           ))}
         </ul>
       ) : (
-        <p>No tienes compras registradas.</p>
+        <p>You have no registered purchases.</p>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import './Home.css'; // Importa el archivo CSS para estilizar
 const Home: React.FC = () => {
   return (
     <div className="container">
-      <h1>Bienvenido a la tienda NFT</h1>
+      <h1>Welcome to the NFT store</h1>
       <ProductList />
     </div>
   );

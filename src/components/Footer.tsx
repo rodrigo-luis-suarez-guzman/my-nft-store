@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           </a>
         </div>
       </div>
-      <p>© 2024 NFT Marketplace. Todos los derechos reservados.</p>
+      <p>© 2024 NFT Marketplace. All rights reserved.</p>
     </footer>
   );
 }

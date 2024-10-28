@@ -21,8 +21,8 @@ const NFTCard: React.FC<{ nft: Purchase }> = ({ nft }) => {
       <img src={nft.image} alt={nft.name} />
       <h3>{nft.name}</h3>
       <p>{nft.price} ETH</p>
-      <button onClick={handleAddToCart}>Agregar al Carro</button>
-      <button onClick={handleBuyNow}>Comprar</button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button onClick={handleBuyNow}>Buy</button>
     </div>
   );
 };

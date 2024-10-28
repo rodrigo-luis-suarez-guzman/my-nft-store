@@ -17,7 +17,7 @@ const NFTPurchase: React.FC<{ nft: NFTItem }> = ({ nft }) => {
     <div className="nft-purchase">
       <h2>{nft.name}</h2>
       <img src={nft.imageUrl} alt={nft.name} className="nft-image" />
-      <button onClick={handlePurchase}>Comprar NFT</button>
+      <button onClick={handlePurchase}>Buy NFT</button>
       {/* Agregar mas dettalles de compra aqui  */}
     </div>
   );

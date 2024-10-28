@@ -22,7 +22,7 @@ const PurchaseListModal: React.FC<PurchaseListModalProps> = ({ isOpen, onClose, 
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Compras Realizadas</h2>
+        <h2>Purchases Made</h2>
         {purchases.length > 0 ? (
           <ul className="purchase-list">
             {purchases.map((purchase) => (
@@ -30,15 +30,15 @@ const PurchaseListModal: React.FC<PurchaseListModalProps> = ({ isOpen, onClose, 
                 <img src={purchase.image} alt={purchase.name} className="purchase-image" />
                 <div>
                   <h3>{purchase.name}</h3>
-                  <p>Precio: {purchase.price} ETH</p>
+                  <p>Price: {purchase.price} ETH</p>
                 </div>
               </li>
             ))}
           </ul>
         ) : (
-          <p>No has realizado ninguna compra.</p>
+          <p>You haven't made any purchases yet.</p>
         )}
-        <button className="close-button" onClick={onClose}>Cerrar</button>
+        <button className="close-button" onClick={onClose}>Close</button>
       </div>
     </div>
   );

@@ -14,9 +14,9 @@ const Cart: React.FC = () => {
 
   return (
     <div>
-      <h2>Carrito de Compras</h2>
+      <h2>Shopping Cart</h2>
       {state.purchases.length === 0 ? (
-        <p>No hay items en el carrito.</p>
+        <p>There are no items in the cart.</p>
       ) : (
         <>
           <ul>
@@ -25,8 +25,8 @@ const Cart: React.FC = () => {
                 <img src={item.image} alt={item.name} />
                 <div>
                   <h3>{item.name}</h3>
-                  <p>Precio: {item.price} ETH</p>
-                  <p>Cantidad: {item.quantity}</p>
+                  <p>Price:{item.price} ETH</p>
+                  <p>Amount: {item.quantity}</p>
                 </div>
                 <button onClick={() => handleRemoveFromCart(item.id)}>Eliminar</button>
               </li>

@@ -9,9 +9,9 @@ const PurchaseList: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isO
 
   return (
     <div>
-      <h2>Lista de Compras</h2>
+      <h2>Shopping list</h2>
       {state.purchases.length === 0 ? (
-        <p>No has realizado compras todavía.</p>
+        <p>You haven't made any purchases yet.</p>
       ) : (
         <ul>
           {state.purchases.map((item) => (
@@ -22,7 +22,7 @@ const PurchaseList: React.FC<{ isOpen: boolean; onClose: () => void; }> = ({ isO
           ))}
         </ul>
       )}
-      <button onClick={onClose}>Cerrar</button>
+      <button onClick={onClose}>Close</button>
     </div>
   );
 };

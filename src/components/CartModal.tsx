@@ -28,9 +28,9 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
     <div className="cart-modal-overlay">
       <div className="cart-modal">
         <button className="close-button" onClick={onClose}>Cerrar</button>
-        <h2>Carrito de Compras</h2>
+        <h2>Shopping Cart</h2>
         {state.purchases.length === 0 ? (
-          <p>No hay items en el carrito.</p>
+          <p>There are no items in the cart.</p>
         ) : (
           <ul className="cart-items">
             {state.purchases.map((item: Purchase) => (
@@ -38,15 +38,15 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
                 <img src={item.image} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
-                  <p>Precio: ${item.price}</p>
+                  <p>Price: ${item.price}</p>
                 </div>
-                <button onClick={() => handleRemoveFromCart(item.id)}>Eliminar</button>
+                <button onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
               </li>
             ))}
           </ul>
         )}
         {state.purchases.length > 0 && (
-          <button className="purchase-button" onClick={handlePurchase}>Realizar Compra</button>
+          <button className="purchase-button" onClick={handlePurchase}>Make Purchase</button>
         )}
       </div>
     </div>

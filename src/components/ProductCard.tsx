@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, price, addToCart })
       <h3>{name}</h3>
       <p>Price: ${price}</p>
       <button onClick={() => addToCart(id, name, price)} style={{ background: "#ff9800", color: "white", padding: "10px", border: "none", cursor: "pointer" }}>
-        Agregar al carrito
+        Add to Cart
       </button>
     </div>
   );
