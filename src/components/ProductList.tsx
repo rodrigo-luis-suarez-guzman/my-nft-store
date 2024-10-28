@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { connectMetaMask } from '../services/walletConnections';
-import { toast } from 'react-toastify'; // Importa toast para las notificaciones
+import { toast } from 'react-toastify';
+import NftDetailModal from './NftDetailModal';
 import './ProductList.css';
 import nft1 from '../assets/images/nft1.png';
 import nft2 from '../assets/images/nft2.png';
@@ -11,15 +12,17 @@ import nft5 from '../assets/images/nft5.png';
 
 // Datos de los productos (NFTs)
 const products = [
-  { id: 1, name: 'NFT 1', price: 10, image: nft1 },
-  { id: 2, name: 'NFT 2', price: 20, image: nft2 },
-  { id: 3, name: 'NFT 3', price: 30, image: nft3 },
-  { id: 4, name: 'NFT 4', price: 40, image: nft4 },
-  { id: 5, name: 'NFT 5', price: 50, image: nft5 },
+  { id: 1, name: 'Ghost Rider', price: 10, image: nft1, story: 'This is the brave Crypto Ghost Rider fighting evil in the metaverse...' },
+  { id: 2, name: 'The Keep Calm and Hoodl ', price: 20, image: nft2, story: 'The Keep Calm and Hoodl is a mystical keeper of ancient secrets...' },
+  { id: 3, name: 'Bitcoin Miner', price: 30, image: nft3, story: 'Bitcoin Miner dominates the elements of the cosmos with his powers...' },
+  { id: 4, name: 'Moon Boy', price: 40, image: nft4, story: 'Moon Boy is a cyberspace adventurer and data protector...' },
+  { id: 5, name: 'Crypto Morpheus', price: 50, image: nft5, story: 'Crypto Morpheus glows in the dark and keeps secrets...' },
 ];
 
 const ProductList: React.FC = () => {
   const { dispatch } = useCart();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedNft, setSelectedNft] = useState<{ imageUrl: string; story: string } | null>(null);
 
   // Maneja la compra de un NFT
   const handleBuyNFT = async (product: { id: number; name: string; price: number; image: string }) => {
@@ -34,12 +37,7 @@ const ProductList: React.FC = () => {
         });
         return;
       }
-
-      // Aquí puedes agregar la lógica para realizar la compra
-      console.log(`Compraste ${product.name} por ${product.price} ETH`);
       dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 } });
-
-      // Notificación de éxito gracias react-toastify
       toast.success(`🎉 ${product.name} ha sido agregado al carrito!`, {
         position: "top-right",
         autoClose: 3000,
@@ -57,18 +55,32 @@ const ProductList: React.FC = () => {
     }
   };
 
+  // Maneja la apertura del modal al hacer clic en una card
+  const handleCardClick = (product: { image: string; story: string }) => {
+    setSelectedNft({ imageUrl: product.image, story: product.story });
+    setModalOpen(true);
+  };
+
   return (
     <div className="product-list">
       {products.map((product) => (
-        <div key={product.id} className="product-card">
+        <div key={product.id} className="product-card" onClick={() => handleCardClick(product)}>
           <img src={product.image} alt={product.name} className="product-image" />
           <h3>{product.name}</h3>
           <p>Price: {product.price} ETH</p>
-          <button onClick={() => handleBuyNFT(product)} className="buy-button">
+          <button onClick={(e) => { e.stopPropagation(); handleBuyNFT(product); }} className="buy-button">
             Buy NFT
           </button>
         </div>
       ))}
+      {selectedNft && (
+        <NftDetailModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          imageUrl={selectedNft.imageUrl}
+          story={selectedNft.story}
+        />
+      )}
     </div>
   );
 };
