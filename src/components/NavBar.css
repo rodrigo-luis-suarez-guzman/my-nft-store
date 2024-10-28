@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--light-bg); /* Usando la variable definida */
+  background-color: var(--light-bg); 
   padding: 1rem 2rem;
   color: #fff;
   position: relative; /* Para que el menú se posicione correctamente */
@@ -63,11 +63,11 @@ h1 {
 /* Estilo para el resumen de carrito */
 .cart-summary {
   background-color: var(--secondary-color); /* Fondo para el resumen */
-  color: #000; /* Color del texto */
+  color: #000; 
   border-radius: 12px;
   padding: 2px 8px;
-  font-size: 0.9rem; /* Tamaño de fuente más pequeño */
-  margin-left: 10px; /* Espacio a la izquierda */
+  font-size: 0.9rem; 
+  margin-left: 10px; 
 }
 
 /* Responsive */
@@ -90,9 +90,9 @@ h1 {
   }
 
   .nav-buttons button {
-    width: 80%; /* Ajusta el ancho de los botones en vista móvil */
-    padding: 0.5rem; /* Reduce el padding para que sean más pequeños */
-    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    width: 80%; 
+    padding: 0.5rem; 
+    font-size: 0.9rem; 
     margin: 5px 0; /* Espacio vertical entre los botones */
   }
 

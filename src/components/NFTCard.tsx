@@ -11,9 +11,9 @@ const NFTCard: React.FC<{ nft: Purchase }> = ({ nft }) => {
   };
 
   const handleBuyNow = () => {
-    // Puedes hacer la lógica de compra aquí
+    //  hacer la lógica de compra aquí
     handleAddToCart();
-    // Redirigir o abrir un modal de compra, etc.
+    // Redirigir o abrir un modal de compra.
   };
 
   return (

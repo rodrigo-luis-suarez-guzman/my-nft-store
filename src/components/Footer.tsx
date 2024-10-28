@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../assets/images/Logo.svg'; // Asegúrate de que la ruta sea correcta
-import './Footer.css'; // Asegúrate de tener un archivo CSS para el footer
+import logo from '../assets/images/Logo.svg'; 
+import './Footer.css'; 
 
 const Footer: React.FC = () => {
   return (

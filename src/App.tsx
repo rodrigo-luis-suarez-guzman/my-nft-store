@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import ProductList from './components/ProductList';
 import CartModal from './components/CartModal';
 import LoginModal from './components/LoginModal';
+import Footer from './components/Footer'; 
 import { connectMetaMask, connectCoinbase, connectPhantom } from './services/walletConnections';
 
 const App: React.FC = () => {
@@ -41,6 +42,7 @@ const App: React.FC = () => {
         onConnectCoinbase={handleConnectCoinbase}
         onConnectPhantom={handleConnectPhantom}
       />
+      <Footer /> 
     </div>
   );
 };

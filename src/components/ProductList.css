@@ -14,7 +14,7 @@
     border-radius: 12px;
     text-align: center;
     position: relative;
-    width: 220px; /* Tamaño de la tarjeta ajustado */
+    width: 220px; 
     background: linear-gradient(145deg, #1c1c1c, #272727); /* Fondo gris oscuro con degradado */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6); /* Sombra más profunda */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
