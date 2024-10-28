@@ -1,12 +1,26 @@
 /* src/App.css */
 
+/* Variables CSS */
+:root {
+  --dark-bg: #141414;
+  --light-bg: #0a0a0a;
+  --primary-color: #00FFC8;
+  --secondary-color: #00FFF2;
+  --hover-color: #ff0099;
+}
+
 /* General */
 body {
-  background-color: #0f0f0f; /* Fondo oscuro */
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--dark-bg);
+  color: #fff;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Navbar Futurista */
@@ -14,224 +28,40 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #1a1a1d, #282828);
   padding: 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--light-bg);
+  border-bottom: 2px solid var(--primary-color);
 }
 
-.navbar-logo {
-  font-size: 1.5rem;
-  color: #00ccff;
+.navbar-brand {
+  font-size: 24px;
   font-weight: bold;
+  color: var(--primary-color);
 }
 
-.navbar-links {
+.navbar-menu {
   display: flex;
   gap: 20px;
 }
 
-.navbar-links a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.navbar-links a:hover {
-  color: #00ccff;
-}
-
-.navbar-icons {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-icons button {
-  background: #282828;
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
+.navbar-menu li {
+  list-style: none;
   cursor: pointer;
   color: #fff;
-  font-size: 1.2rem;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar-icons button:hover {
-  background: #00ccff;
-  box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
-}
-
-/* Footer (Booty) Futurista */
-footer {
-  background-color: #1a1a1d;
-  padding: 30px;
-  text-align: center;
-  color: #b3b3b3;
-  border-top: 2px solid #00ccff;
-}
-
-footer p {
-  margin: 10px 0;
-  font-size: 1rem;
-}
-
-footer a {
-  color: #00ccff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-footer a:hover {
-  color: #fff;
   transition: color 0.3s ease;
+}
+
+.navbar-menu li:hover {
+  color: var(--primary-color);
 }
 
 /* Product List (Cards) */
 .product-list {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 30px;
-  padding: 20px;
-}
-
-.product-card {
-  background: linear-gradient(135deg, #2a2a72, #009ffd);
-  border-radius: 15px;
-  padding: 20px;
-  width: 250px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 40px rgba(0, 0, 255, 0.3);
-}
-
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 300%;
-  height: 300%;
-  background: radial-gradient(circle, rgba(0, 0, 255, 0.1), transparent);
-  transition: opacity 0.3s ease;
-  opacity: 0;
-}
-
-.product-card:hover::before {
-  opacity: 0.7;
-}
-
-.nft-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .nft-image {
-  transform: translateY(-10px);
-}
-
-.product-card h3 {
-  font-size: 1.5rem;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.product-card p {
-  font-size: 1rem;
-  color: #b3b3b3;
-  margin-bottom: 15px;
-}
-
-button {
-  background-color: #ff0099;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-button:hover {
-  background-color: #ff66cc;
-  box-shadow: 0 0 15px rgba(255, 0, 153, 0.5);
-}
-
-
-
-button:hover::before {
-  opacity: 0.6;
-}
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #141414;
-  color: #fff;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #0a0a0a;
-  border-bottom: 2px solid #00FFC8;
-}
-
-.navbar-brand {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00FFC8;
-}
-
-.navbar-menu {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-menu li {
-  list-style: none;
-  cursor: pointer;
-  color: #fff;
-  transition: color 0.3s ease;
-}
-
-.navbar-menu li:hover {
-  color: #00FFC8;
-}
-
-.product-list {
-  display: flex;
-  justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  padding: 20px;
 }
 
 .nft-card {
@@ -254,8 +84,9 @@ body {
   border-radius: 10px;
 }
 
+/* Botones Futuristas */
 .button-futuristic {
-  background: linear-gradient(90deg, #00FFC8, #00FFF2);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   border: none;
   padding: 10px 20px;
   color: #000;
@@ -266,134 +97,60 @@ body {
 }
 
 .button-futuristic:hover {
-  background: linear-gradient(90deg, #00FFF2, #00FFC8);
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
 }
 
+/* Footer Futurista */
 .footer {
   padding: 20px;
   text-align: center;
-  background-color: #0a0a0a;
-  border-top: 2px solid #00FFC8;
+  background-color: var(--light-bg);
+  border-top: 2px solid var(--primary-color);
 }
 
 .social-icons a {
-  color: #00FFC8;
+  color: var(--primary-color);
   margin: 0 10px;
   font-size: 20px;
   transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-  color: #00FFF2;
+  color: var(--secondary-color);
 }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #141414;
-  color: #fff;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #0a0a0a;
-  border-bottom: 2px solid #00FFC8;
-}
-
-.navbar-brand {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00FFC8;
-}
-
-.navbar-menu {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-menu li {
-  list-style: none;
-  cursor: pointer;
-  color: #fff;
-  transition: color 0.3s ease;
-}
-
-.navbar-menu li:hover {
-  color: #00FFC8;
-}
-
-.product-list {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.nft-card {
-  background-color: #1a1a1a;
-  border: 1px solid rgba(0, 255, 255, 0.5);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-  padding: 20px;
-  text-align: center;
-  width: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nft-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
-}
-
-.nft-image {
-  width: 100%;
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-}
-
-.button-futuristic {
-  background: linear-gradient(90deg, #00FFC8, #00FFF2);
-  border: none;
-  padding: 10px 20px;
-  color: #000;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: background 0.5s ease;
-}
-
-.button-futuristic:hover {
-  background: linear-gradient(90deg, #00FFF2, #00FFC8);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
-}
-
-.footer {
   padding: 20px;
-  text-align: center;
-  background-color: #0a0a0a;
-  border-top: 2px solid #00FFC8;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.social-icons a {
-  color: #00FFC8;
-  margin: 0 10px;
-  font-size: 20px;
-  transition: color 0.3s ease;
+.modal-content {
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.social-icons a:hover {
-  color: #00FFF2;
+/* Responsividad */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+  
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nft-card {
+    width: 100%; /* Abarca el ancho completo en pantallas pequeñas */
+  }
 }

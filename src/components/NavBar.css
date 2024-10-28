@@ -1,12 +1,14 @@
 /* src/components/NavBar.css */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #101010;
+  background-color: var(--light-bg); /* Usando la variable definida */
   padding: 1rem 2rem;
   color: #fff;
   position: relative; /* Para que el menú se posicione correctamente */
+  border-bottom: 2px solid var(--primary-color); /* Línea inferior para el navbar */
 }
 
 .nav-buttons {
@@ -14,21 +16,22 @@
 }
 
 .nav-buttons button {
-  background: linear-gradient(135deg, #00FFFF, #007FFF);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Usando variables */
   border: none;
   padding: 0.75rem 1.5rem;
   margin: 0 0.5rem;
-  color: white;
+  color: #000;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 25px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Añadido efecto de transición al fondo */
 }
 
 .nav-buttons button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); /* Cambio de fondo al hacer hover */
 }
 
 .nav-buttons button:active {
@@ -38,7 +41,7 @@
 h1 {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  color: #00FFFF;
+  color: var(--primary-color); /* Usando variable para el color */
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
 }
 
@@ -52,9 +55,19 @@ h1 {
 .bar {
   height: 3px;
   width: 25px;
-  background-color: #00FFFF; /* Color de las barras */
+  background-color: var(--primary-color); /* Color de las barras usando variable */
   margin: 4px 0; /* Espacio entre las barras */
   transition: 0.3s;
+}
+
+/* Estilo para el resumen de carrito */
+.cart-summary {
+  background-color: var(--secondary-color); /* Fondo para el resumen */
+  color: #000; /* Color del texto */
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+  margin-left: 10px; /* Espacio a la izquierda */
 }
 
 /* Responsive */
@@ -66,7 +79,7 @@ h1 {
     top: 60px; /* Ajusta según la altura de la barra de navegación */
     left: 0;
     right: 0;
-    background-color: #101010; /* Fondo del menú */
+    background-color: var(--light-bg); /* Fondo del menú usando variable */
     z-index: 1; /* Asegura que esté encima de otros elementos */
   }
 
