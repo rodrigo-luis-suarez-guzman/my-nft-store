@@ -36,7 +36,7 @@ const cartReducer = (state: CartState, action: any): CartState => {
       return {
         ...state,
         completedPurchases: [...state.completedPurchases, ...state.purchases],
-        purchases: [], // Limpiar carrito después de completar la compra
+        purchases: [],
       };
     default:
       return state;

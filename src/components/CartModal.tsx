@@ -54,3 +54,6 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
 };
 
 export default CartModal;
+
+
+

@@ -4,6 +4,7 @@ import LoginModal from './LoginModal';
 import { connectMetaMask, connectCoinbase } from '../services/walletConnections';
 import './NavBar.css';
 import logo from '../assets/images/Logo.svg';
+import { toast } from 'react-toastify'; // Importar toast
 
 interface NavBarProps {
   onOpenPurchaseList: () => void;
@@ -35,7 +36,15 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
 
   // Cálculo del total y la cantidad en el carrito
   const totalQuantity = state.purchases.length;
-  const totalValue = state.purchases.reduce((total, item) => total + item.price, 0).toFixed(2); // Suponiendo que 'price' está en ETH
+  const totalValue = state.purchases.reduce((total, item) => total + item.price, 0).toFixed(2);
+
+  const handleLoginClick = () => {
+    if (address) {
+      toast.info("Ya estás conectado. Si deseas cambiar la wallet, desconéctate primero.");
+    } else {
+      setLoginModalOpen(true);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -50,7 +59,7 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
           Carrito ({totalQuantity} - {totalValue} ETH)
         </button>
         <button onClick={onOpenPurchaseList}>Mis Compras</button>
-        <button onClick={() => setLoginModalOpen(true)}>Iniciar Sesión</button>
+        <button onClick={handleLoginClick}>Iniciar Sesión</button>
       </div>
       <LoginModal
         isOpen={isLoginModalOpen}
@@ -58,7 +67,12 @@ const NavBar: React.FC<NavBarProps> = ({ onOpenPurchaseList, onOpenCartModal, on
         onConnectMetaMask={handleConnectMetaMask}
         onConnectCoinbase={handleConnectCoinbase}
       />
-      {address && <p>Conectado como: {address}</p>}
+      {address && (
+        <div className="wallet-info">
+          <p>Conectado como:</p>
+          <p className="wallet-address">{address.slice(0, 6)}...{address.slice(-4)}</p>
+        </div>
+      )}
     </nav>
   );
 };

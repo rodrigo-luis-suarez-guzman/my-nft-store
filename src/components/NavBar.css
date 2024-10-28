@@ -100,3 +100,22 @@ h1 {
     display: flex; /* Muestra el botón de hamburguesa */
   }
 }
+.nav-buttons {
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+
+.nav-buttons.active {
+  max-height: 500px; /* Ajusta según tu contenido */
+}
+.wallet-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--secondary-color);
+}
+
+.wallet-address {
+  font-weight: bold;
+  font-size: 16px;
+}
+

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { connectMetaMask } from '../services/walletConnections';
+import { toast } from 'react-toastify'; // Importa toast para las notificaciones
 import './ProductList.css';
 import nft1 from '../assets/images/nft1.png';
 import nft2 from '../assets/images/nft2.png';
@@ -25,15 +26,34 @@ const ProductList: React.FC = () => {
     try {
       const account = await connectMetaMask();
       if (!account) {
-        alert('Por favor, conecta tu MetaMask antes de realizar la compra.');
+        toast.error('Por favor, conecta tu MetaMask antes de realizar la compra.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          style: { background: '#FF5252', color: '#fff' },
+        });
         return;
       }
 
+      // Aquí puedes agregar la lógica para realizar la compra
       console.log(`Compraste ${product.name} por ${product.price} ETH`);
       dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 } });
+
+      // Notificación de éxito
+      toast.success(`🎉 ${product.name} ha sido agregado al carrito!`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        style: { background: '#4CAF50', color: '#fff' },
+      });
     } catch (error) {
       console.error('Error al comprar NFT:', error);
-      alert('Hubo un error al intentar comprar el NFT.');
+      toast.error('Hubo un error al intentar comprar el NFT.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        style: { background: '#FF5252', color: '#fff' },
+      });
     }
   };
 

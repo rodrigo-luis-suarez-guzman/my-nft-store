@@ -1,8 +1,7 @@
 // src/components/PurchaseListModal.tsx
+
 import React from 'react';
 import './PurchaseListModal.css';
-import '../App.css';
-
 
 interface Purchase {
   id: number;

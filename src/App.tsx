@@ -10,6 +10,8 @@ import Footer from './components/Footer';
 import { UserProvider } from './context/UserContext';
 import { CartProvider, useCart } from './context/CartContext';
 import { connectMetaMask, connectCoinbase } from './services/walletConnections';
+import { ToastContainer, toast } from 'react-toastify'; // Importar ToastContainer y toast
+import 'react-toastify/dist/ReactToastify.css'; // Importar el CSS de Toastify
 import './App.css';
 
 const App = () => {
@@ -60,9 +62,11 @@ const AppContent: React.FC<AppContentProps> = ({
       if (account) {
         console.log('MetaMask conectado:', account);
         setLoginModalOpen(false);
+        toast.success('Conectado a MetaMask'); // Mensaje de éxito al conectar
       }
     } catch (error) {
       console.error('Error al conectar MetaMask:', error);
+      toast.error('Error al conectar a MetaMask'); // Mensaje de error al conectar
     }
   };
 
@@ -72,14 +76,17 @@ const AppContent: React.FC<AppContentProps> = ({
       if (account) {
         console.log('Coinbase conectado:', account);
         setLoginModalOpen(false);
+        toast.success('Conectado a Coinbase'); // Mensaje de éxito al conectar
       }
     } catch (error) {
       console.error('Error al conectar Coinbase:', error);
+      toast.error('Error al conectar a Coinbase'); // Mensaje de error al conectar
     }
   };
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       <NavBar
         onOpenPurchaseList={() => setPurchaseListOpen(true)}
         onOpenLoginModal={() => setLoginModalOpen(true)}

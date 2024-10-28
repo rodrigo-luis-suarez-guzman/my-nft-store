@@ -154,3 +154,37 @@ body {
     width: 100%; /* Abarca el ancho completo en pantallas pequeñas */
   }
 }
+
+/* Animaciones de entrada y salida para el modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Clases para el modal */
+
+.modal.exit {
+  animation: modalFadeOut 0.3s ease forwards; /* Salida */
+}
+
+/* Botones Futuristas */
+.button-futuristic:active {
+  transform: scale(0.95);
+}
